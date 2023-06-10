@@ -1,0 +1,82 @@
+<div class="w-100">
+    
+    <ng-container *ngIf="label">
+        <label class=" mb-1" [for]="name">{{label}} <span *ngIf="required" class="text-danger">*</span></label>
+    </ng-container>
+    <ng-container >
+        <ng-select
+            [id]="name"
+            [name]="name!"    
+            class="" 
+            #ngInput="ngModel"
+            [(ngModel)]="value"
+            [ngClass]="{'ng-select-is-invalid': ngForm.submitted && (ngInput.invalid),'dark-input':isDarkMode}"
+            [clearable]="allowClear!"
+            [disabled]="disabled || loading || (!items.length && !routeNew) "
+            [required]="required!"
+            [maxlength]="maxlength!"
+            [items]="items"
+            [bindLabel]="optionTextField"
+            [bindValue]="optionValueField"
+            [minlength]="minlength!"
+            [maxSelectedItems]="maxlength!"
+            (change)="onInputChange($event)"
+            (add)="onInputAdd($event)"
+            (clear)="onClear($event)"
+            (ngModelChange)="valueChange.emit($event)"
+            (remove)="onRemove($event)"
+            (search)="search = $event.term"
+            [multiple]="multiple!"
+            [placeholder]="placeholder!"
+            [loading]="loading!"
+            >
+            <ng-template ng-notfound-tmp>
+                <ng-container *ngIf="search.length">
+                    <div class="px-3 py-2">
+                        <span>"{{search}}" não encontrado.</span>
+                    </div>
+                </ng-container>
+            </ng-template>
+            <ng-container *ngIf="loading">
+                <ng-template ng-loadingspinner-tmp>
+                    <div class="lds-ellipsis">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-container >
+                <ng-template ng-multi-label-tmp let-items="items" let-clear="clear">
+                    <div class="ng-value" *ngFor="let item of items | slice:0:2">
+                        <span class="ng-value-label">
+                                <ng-container *ngIf="optionTextField">
+                                {{getOptionFild(item)}}
+                            </ng-container>
+                            <ng-container *ngIf="!optionTextField">
+                                {{item}}
+                            </ng-container>
+                        </span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </div>
+                    <div class="ng-value" *ngIf="items.length > 2">
+                        <span class="ng-value-label">mais {{items.length - 2}}...</span>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-container *ngIf="isCheckbox">
+                <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> 
+                    <ng-container *ngIf="optionTextField">
+                        {{item[optionTextField]}}
+                    </ng-container>
+                    <ng-container *ngIf="!optionTextField">
+                        {{item}}
+                    </ng-container>
+                </ng-template>
+            </ng-container>
+        </ng-select>
+        <div *ngIf="ngForm.submitted && (ngInput.invalid)" class="text-danger small"><small>Verifique se o campo foi preenchido corretamente.</small></div>
+    </ng-container>
+</div>

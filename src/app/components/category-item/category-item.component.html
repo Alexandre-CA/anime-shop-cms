@@ -1,0 +1,20 @@
+<div class="ticket-item w-100 shadow-sm rounded-2 text-decoration-none text-dark" type="button" >
+    <div class="row px-3 gx-1">
+        <div class="col-12 col-md-5 d-flex align-items-center py-3 lh-sm">
+            <span class="limit-line-2" [innerHTML]="config.name"></span>
+        </div>
+        <div class="col-12 col-md-5 d-flex align-items-center py-3 ">
+            <span [innerHTML]="config.description"></span>
+        </div>
+        <div class="col-12 col-md-1  d-flex align-content-center justify-items-center align-items-center text-center "  >
+            <div class="product-status d-flex align-items-center justify-content-center font-weight-600 text-uppercase lh-sm rounded-3" [ngClass]="{'bg-success':config.status === 1,'bg-warning':config.status === 0}">
+                <small  class="fw-bold">{{config.status === 1 ? 'ATIVO' : 'INATIVO'}}</small>
+            </div>
+        </div>
+        <div class="col-12 col-md-1 d-flex align-items-center px-2">
+            <a class="btn btn-transparent-dark btn-icon rounded-circle" [routerLink]="'/category/edit/'+config.id">
+                <fa-icon class="opacity-75" [icon]="['far','pen-to-square']"></fa-icon>
+            </a>
+        </div>
+    </div>
+</div>

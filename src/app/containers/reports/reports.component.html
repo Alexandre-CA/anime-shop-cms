@@ -1,0 +1,15 @@
+<div class="container  pt-4 pb-3">
+    <div class="d-flex flex-column">
+        <div class="d-flex gap-3  mb-3">
+            <a class="btn btn-primary" [routerLink]="'/product'">Produtos</a>
+            <a class="btn btn-primary" [routerLink]="'/category'">Categorias</a>
+            <button class="btn btn-outline-primary" [disabled]="true">Relatórios</button>
+        </div>
+        <div class="d-flex flex-column gap-3 mt-4">
+            <button class="btn btn-primary fw-bold" [disabled]="carregando" (click)="getReportProduct()">Relatório dos Produtos</button>
+            <button class="btn btn-primary fw-bold" [disabled]="carregando" (click)="getReportCategory()">Relatório das Categorias</button>
+            <button class="btn btn-primary fw-bold" [disabled]="carregando" (click)="getReportUser()">Relatório dos Usuários</button>
+            <button class="btn btn-primary fw-bold" [disabled]="carregando" (click)="getReportCustomer()">Relatório dos Clientes</button>
+        </div>
+    </div>
+</div>

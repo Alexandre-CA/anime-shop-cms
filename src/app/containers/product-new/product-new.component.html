@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="py-4">
+        <div class="d-flex flex-column">
+            
+            <div class="d-flex justify-content-between align-items-center gap-3">
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-transparent-dark" [routerLink]="'/product'"><fa-icon class="text-primary" [icon]="['fas','chevron-left']"></fa-icon></a>
+                    <span class="fs-5 fw-bold">{{dataId ? 'Editar' :'Novo'}} Produto</span>
+                </div>
+                <ng-container *ngIf="dataId">
+                    <div>
+                        <button class="btn px-4" [ngClass]="{'btn-success':object.status == 1,'btn-warning':object.status == 0}" [disabled]="carregando" (click)="alterStatus()"><fa-icon [icon]="['fas',(object.status == 1) ? 'toggle-on' : 'toggle-off']"></fa-icon>&nbsp;{{object.status == 1 ? 'ATIVO' : 'INATIVO'}}</button>
+                    </div>
+                </ng-container>
+            </div>
+            <hr class="mt-1 mb-3">
+            <form #f="ngForm" class="row" (ngSubmit)="onSubmit(f)">
+                <div class="form-group col-12 col-md-6">
+                    <sbpro-input [label]="'Nome'" [placeholder]="'Ex.: Boneco'" [(value)]="object.name" [maxlength]="100" [ngForm]="f" [disabled]="carregando || object.status !== 1 " [showMaxLength]="true"></sbpro-input>
+                </div>
+                <div class="form-group col-12 col-md-4">
+                    <sbpro-input [label]="'Imagem'" [placeholder]="'Ex.: https://...'" [(value)]="object.image" [maxlength]="2000" [ngForm]="f" [disabled]="carregando || object.status !== 1 " ></sbpro-input>
+                </div>
+                <div class="form-group col-12 col-md-2">
+                    <sbpro-input [label]="'Valor'" [placeholder]="'Ex.: 0,00'" [(value)]="object.strPrice" [maxlength]="100" [ngForm]="f" [disabled]="carregando || object.status !== 1" (blur)="onBlurPrice(object.strPrice!)"></sbpro-input>
+                </div>
+                <div class="form-group col-12 col-md-4">
+                    <app-select 
+                    [label]="'Promoção'" 
+                    [(value)]="object.promotion"
+                    [required]="false"
+                    [ngForm]="f" 
+                    [allowClear]="true"
+                    [disabled]="carregando || carregandoCategory || object.status !== 1"
+                    [loading]="carregandoCategory"
+                    optionValueField="value"
+                    optionTextField="promotion"
+                    [items]="promotions"
+                    >
+                    </app-select>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <app-select 
+                    [label]="'Categoria'" 
+                    [(value)]="object.categories"
+                    [required]="false"
+                    [multiple]="true"
+                    [ngForm]="f" 
+                    [disabled]="carregando || carregandoCategory || object.status !== 1"
+                    [loading]="carregandoCategory"
+                    optionValueField="id"
+                    optionTextField="name"
+                    [items]="categories"
+                    >
+                    </app-select>
+                </div>
+                <div class="form-group col-12">
+                    <sbpro-input [label]="'Descrição'" [required]="false" [type]="'area'" [placeholder]="'Ex.: Boneco feito exclusivamente para...'" [(value)]="object.description" [maxlength]="400" [ngForm]="f" [disabled]="carregando || object.status !== 1 " [showMaxLength]="true" [maxHeight]="150"></sbpro-input>
+                </div>
+                <div class="col-12 mt-3">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn btn-primary px-4" [disabled]="carregando || object.status !== 1"><fa-icon [icon]="['fas','box-archive']"></fa-icon>&nbsp;Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

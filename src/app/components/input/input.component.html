@@ -1,0 +1,63 @@
+<div class="w-100">
+    <ng-container *ngIf="label">
+        <div class="d-flex justify-content-between pe-1">
+            <label class="mb-1" [for]="id"><span [innerHtml]="label"></span>&nbsp;<span *ngIf="required" class="text-danger">*</span></label>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="type !== 'area'">
+        <input 
+        #ngInput="ngModel" 
+        [class]="'form-control '+classes" 
+        (change)="onChange.emit($event)"  
+        [id]="id" 
+        [name]="name!" 
+        [type]="type" 
+        [minlength]="minlength!" 
+        [maxlength]="maxlength!" 
+        [required]="required!" 
+        [(ngModel)]="value" 
+        (blur)="blur.emit($event)" 
+        (focus)="focus.emit($event)" 
+        [disabled]="disabled!" 
+        [readonly]="readonly"  
+        [placeholder]="placeholder" 
+        autocomplete="off" 
+        [ngClass]="{'is-invalid': ngForm.submitted && (ngInput.invalid || isInvalid)}" 
+        [pattern]="pattern!"
+        [style]="styles"
+        (ngModelChange)="onInputChange()" 
+        />
+    </ng-container>
+    <ng-container *ngIf="type === 'area'">
+        <textarea
+        #ngInput="ngModel" 
+        autocomplete="off" 
+        [id]="id" 
+        [name]="name!" 
+        [required]="required!" 
+        [(ngModel)]="value" 
+        [minlength]="minlength!" 
+        [maxlength]="maxlength!"
+        [(ngModel)]="value" 
+        [disabled]="disabled!" 
+        [readonly]="readonly"  
+        [placeholder]="placeholder" 
+        [ngClass]="{'is-invalid': ngForm.submitted && (ngInput?.invalid || isInvalid)}" 
+        (focus)="focus.emit($event)" 
+        [style]="'max-height: '+ maxHeight +'px;min-height: '+ minHeight +'px;resize:'+ (resise ? 'vertical' : 'none')"
+        [class]="'form-control scrollable '+classes" 
+        [style]="styles"
+        (change)="onChange.emit($event)"  
+        (ngModelChange)="onInputChange()" 
+        >
+        </textarea>
+    </ng-container>
+    <div class="d-flex justify-content-end pt-2" [ngClass]="{'justify-content-between':ngForm.submitted && (ngInput.invalid || isInvalid)}">
+        <div *ngIf="ngForm.submitted && (ngInput?.invalid || isInvalid)" class="text-danger small"><small>Verifique se o campo foi preenchido corretamente.</small></div>
+        <ng-container *ngIf="value?.length && showMaxLength">
+            <div class="d-flex justify-content-end small text-muted ">
+                <small class="fw-bold" [ngClass]="{'text-danger':ngForm.submitted && (ngInput!.invalid || isInvalid)}">{{value!.length}}/{{maxlength}}</small>
+            </div>
+        </ng-container>
+    </div>
+</div>

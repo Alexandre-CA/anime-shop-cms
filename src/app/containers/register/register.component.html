@@ -1,0 +1,49 @@
+<div class="register d-flex justify-content-center py-4" style="width: 100vw;height:100vh">
+	<!-- BEGIN register-content -->
+	<div class="row justify-content-center w-100">
+		<div class="col-12 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center">
+			<form class="w-100" #f="ngForm" (ngSubmit)="onSubmit(f)">
+				<h1 class="text-center">Cadastrar-se</h1>
+				<p class="text-inverse text-opacity-50 text-center">
+					Preencha os <b>campos abaixo</b> para cadastrar sua conta.
+				</p>
+				<div class="mb-3">
+					<sbpro-input [label]="'Nome'" [name]="'name'" [placeholder]="'Ex.: Alexandre Araújo'" [(value)]="object.name" [maxlength]="100" [ngForm]="f" [disabled]="carregando" [showMaxLength]="true"></sbpro-input>
+				</div>
+				<div class="mb-3">
+					<sbpro-input [label]="'E-mail'" [name]="'email'" [type]="'email'" [placeholder]="'Ex.: exemplo@cloudfaster.com.br'" [(value)]="object.email" [maxlength]="100" [ngForm]="f" [disabled]="carregando" [showMaxLength]="true"></sbpro-input>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Senha <span class="text-danger">*</span></label>
+					<input name="password" type="password" class="form-control form-control-lg bg-inverse bg-opacity-5" required #ngPassword="ngModel" [(ngModel)]="object.password" placeholder="" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"  [disabled]="carregando" [ngClass]="{'is-invalid':ngPassword.invalid && f.submitted}" (input)="verifyNewPwd()">
+					<ng-container *ngIf="ngPassword.invalid && f.submitted">
+						<div class="text-danger small"><small>Verifique se o campo foi preenchido corretamente.</small></div>
+					</ng-container>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Confirmar senha <span class="text-danger">*</span></label>
+					<input name="confirmPassword" type="password" class="form-control form-control-lg bg-inverse bg-opacity-5" required #ngPasswordConfirm="ngModel" [(ngModel)]="object.confirmPassword" placeholder="" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"  [disabled]="carregando" [ngClass]="{'is-invalid':ngPasswordConfirm.invalid && f.submitted}" (input)="verifyNewPwd()">
+					<ng-container *ngIf="ngPasswordConfirm.invalid && f.submitted">
+						<div class="text-danger small"><small>Verifique se o campo foi preenchido corretamente.</small></div>
+					</ng-container>
+				</div>
+				<div *ngIf="helperPassword && object.password" class="form-group col-12 mb-3 text-start small font-weight-400">
+					<small class="" [ngClass]="{'text-danger': !validPass.hasLowerCase,'text-success': validPass.hasLowerCase}"><span *ngIf="validPass.hasLowerCase">&#10003;</span><span *ngIf="!validPass.hasLowerCase">&#10005;</span> Sua nova senha deve conter uma letra minúscula</small><br>
+					<small class="" [ngClass]="{'text-danger': !validPass.hasUpperCase,'text-success': validPass.hasUpperCase}"><span *ngIf="validPass.hasUpperCase">&#10003;</span><span *ngIf="!validPass.hasUpperCase">&#10005;</span> Sua nova senha deve conter uma letra maiúscula</small><br>
+					<small class="" [ngClass]="{'text-danger': !validPass.hasNumber,'text-success': validPass.hasNumber}"><span *ngIf="validPass.hasNumber">&#10003;</span><span *ngIf="!validPass.hasNumber">&#10005;</span> Sua nova senha deve conter um número</small><br>
+					<small class="" [ngClass]="{'text-danger': !validPass.hasSpecialCharacter,'text-success': validPass.hasSpecialCharacter}"><span *ngIf="validPass.hasSpecialCharacter">&#10003;</span><span *ngIf="!validPass.hasSpecialCharacter">&#10005;</span> Sua nova senha deve conter caracteres especiais</small><br>
+					<small class="" [ngClass]="{'text-danger': !validPass.has8Characters,'text-success': validPass.has8Characters}"><span *ngIf="validPass.has8Characters">&#10003;</span><span *ngIf="!validPass.has8Characters">&#10005;</span> Sua nova senha deve conter no mínimo 8 caracteres</small><br>
+					<small class="" [ngClass]="{'text-danger': !validPass.match2,'text-success': validPass.match2}"><span *ngIf="validPass.match2">&#10003;</span><span *ngIf="!validPass.match2">&#10005;</span> As senhas devem ser iguais</small><br>
+				</div>
+				<div class="mt-4">
+					<button type="submit" class="btn btn-outline-primary btn-lg d-block w-100" [disabled]="carregando">Cadastrar</button>
+				</div>
+				<div class="text-inverse text-opacity-50 text-center mt-4">
+					<small>Já possui uma conta? <a routerLink="/auth/login">Login</a></small>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!-- END register-content -->
+</div>
+<!-- END register -->

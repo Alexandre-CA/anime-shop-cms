@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import 'ngx-toastr/toastr';
+html,body{
+    background-color: #FDFDFD;
+}
+.btn-transparent-dark{
+    background-color: transparent;
+    border-color: transparent;
+    color: #000;
+    &:hover{
+        background-color: rgba(#000000,0.2);
+        border-color: transparent;
+        color: #000;
+    }
+}
+.btn-icon{
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

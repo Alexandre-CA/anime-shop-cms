@@ -1,0 +1,37 @@
+.solicitation-container {
+    min-height: 73vh;
+}
+.search-input{
+    width: 50%;
+    @media(max-width:762px){
+        width: 75%;
+    }
+}
+.solicitation-title {
+    border-bottom: 1px solid transparent;
+    position: relative;
+    &::after {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        content: "";
+        height: .15rem;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: rgba($color: #ccc, $alpha: 0.2);
+    }
+}
+.form-searchWord {
+    padding-right: 2rem;
+}
+.form-searchWord + .clear {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.1rem;
+    height: 100%;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    .btn {
+        font-size: 0.8rem;
+    }
+}

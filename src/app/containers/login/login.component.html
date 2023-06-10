@@ -1,0 +1,31 @@
+<!-- BEGIN login -->
+<div class="d-flex justify-content-center py-4" style="width: 100vw;height:100vh">
+	<div class="row justify-content-center  w-100">
+		<!-- BEGIN login-content -->
+		<div class="col-12 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center">
+			<form class="w-100" #f="ngForm" (ngSubmit)="onSubmit(f)">
+				<h1 class="text-center">Login</h1>
+				<p class="text-inverse text-opacity-50 text-center">
+					Preencha os <b>campos abaixo</b> para acessar sua conta.
+				</p>
+				<div class="mb-3">
+					<sbpro-input [label]="'E-mail'" [name]="'email'" [type]="'email'" [placeholder]="''" [(value)]="object.email" [maxlength]="100" [ngForm]="f" [disabled]="carregando"></sbpro-input>
+				</div>
+				<div class="mb-3">
+                    <label class="form-label">Senha <span class="text-danger">*</span></label>
+					<input [name]="'pasword'" type="password" class="form-control form-control-lg bg-inverse bg-opacity-5" required #ngPassword="ngModel" [(ngModel)]="object.password" placeholder="" [ngClass]="{'is-invalid':ngPassword.invalid && f.submitted}" [disabled]="carregando">
+					<ng-container *ngIf="ngPassword.invalid && f.submitted">
+						<div class="text-danger small"><small>Verifique se o campo foi preenchido corretamente.</small></div>
+					</ng-container>
+				</div>
+				<div class="d-flex justify-content-center w-100 mt-3">
+					<button type="submit" class="btn btn-outline-primary btn-lg d-block w-75 fw-500 mb-3" [disabled]="carregando">Entrar</button>
+				</div>
+				<div class="text-center text-inverse text-opacity-50 mt-4">
+					<small>Ainda não tem uma conta? <a routerLink="/auth/register" target="_self">Cadastrar-se</a>.</small>
+				</div>
+			</form>
+		</div>
+		<!-- END login-content -->
+	</div>
+</div>
